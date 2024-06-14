@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   User findById(long id);
 
+  void deleteById(long id);
+
   // Lấy phần tử đầu tiên
   // User findFirstByEmail(String email);
   // User findTop1ByEmail(String email);

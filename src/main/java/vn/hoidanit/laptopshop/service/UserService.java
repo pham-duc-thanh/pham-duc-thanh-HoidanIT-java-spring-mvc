@@ -38,6 +38,10 @@ public class UserService {
     return this.userRepository.findById(id);
   }
 
+  public void deleteUser(long id) {
+    this.userRepository.deleteById(id);
+  }
+
   // public User update(Long id, User user) {
   // User fromDB = userRepository.findById(id).orElse(null);
   // if (fromDB == null) {
