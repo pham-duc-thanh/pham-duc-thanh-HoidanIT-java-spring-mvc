@@ -1,6 +1,7 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import vn.hoidanit.laptopshop.service.UserService;
 import vn.hoidanit.laptopshop.domain.User;
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,16 +64,18 @@ public class UserController {
     return "admin/user/detail";
   }
 
-  @RequestMapping("/admin/user/create") // GET
-  public String getCeateUserPage(Model model) {
+  @GetMapping("/admin/user/create") // GET
+  public String getCreateUserPage(Model model) {
     model.addAttribute("newUser", new User());
     return "admin/user/create";
   }
 
-  @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-  public String createUserPage(Model model, @ModelAttribute("newUser") User hoidanit) {
+  @PostMapping(value = "/admin/user/create")
+  public String createUserPage(Model model,
+      @ModelAttribute("newUser") User hoidanit,
+      @RequestParam("hoidanitFile") MultipartFile file) {
     System.out.println("run here " + hoidanit);
-    this.userService.handSaveUser(hoidanit);
+    // this.userService.handSaveUser(hoidanit);
     return "redirect:/admin/user";
   }
 
