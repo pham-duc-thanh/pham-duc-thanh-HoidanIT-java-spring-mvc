@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -31,10 +34,13 @@ public class UserController {
   // Không nên tiêm phụ thuộc @Autwired
   private final UserService userService;
   private final UploadService uploadService;
+  private final PasswordEncoder passwordEncoder;
 
-  public UserController(UserService userService, UploadService uploadService) {
+  public UserController(UserService userService, UploadService uploadService,
+      PasswordEncoder passwordEncoder) {
     this.userService = userService;
     this.uploadService = uploadService;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @RequestMapping("/")
@@ -84,8 +90,15 @@ public class UserController {
 
     String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
 
+    String hashPassword = this.passwordEncoder.encode(hoidanit.getPassword());
+
+    hoidanit.setAvatar(avatar);
+    hoidanit.setPassword(hashPassword);
+    hoidanit.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
+    // save
+
     System.out.println("run here " + hoidanit);
-    // this.userService.handSaveUser(hoidanit);
+    this.userService.handSaveUser(hoidanit);
     return "redirect:/admin/user";
   }
 
