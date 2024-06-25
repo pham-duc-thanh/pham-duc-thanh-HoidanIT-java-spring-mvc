@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.validator.constraints.Range;
 
 import io.micrometer.common.lang.NonNull;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,6 +40,7 @@ public class Product {
 
   @NotNull
   @NotEmpty(message = "detailDesc không được để trống")
+  @Column(columnDefinition = "MEDIUMTEXT")
   private String detailDesc;
 
   @NotNull
