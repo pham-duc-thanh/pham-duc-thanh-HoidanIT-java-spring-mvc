@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   void deleteById(long id);
 
+  boolean existsByEmail(String email);
+
   // Lấy phần tử đầu tiên
   // User findFirstByEmail(String email);
   // User findTop1ByEmail(String email);
