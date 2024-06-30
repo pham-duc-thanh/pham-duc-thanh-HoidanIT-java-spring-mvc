@@ -6,10 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import vn.hoidanit.laptopshop.domain.Product;
-import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
-import vn.hoidanit.laptopshop.repository.RoleRepository;
-import vn.hoidanit.laptopshop.repository.UserRepository;
 
 @Service
 public class ProductService {
